@@ -1,27 +1,33 @@
 
+
 public class Node{
-		private int address;
+		private Node address;
 		private int data;
-		private int next;
-		void putAddress(int a){
-			address=a;
-			
+		private Node next;
+		
+		
+		
+		public Node(int d) {
+			// TODO Auto-generated constructor stub
+			address=this;
+			data=d;
+			next=null;
 		}
-		int getAddress(){
+
+
+		Node getAddress(){
 			return address;
 			
 		}
-		void putData(int a){
-			data=a;	
-		}
+		
 		int getData(){
 			return data;
 		}
-		void putNext(int a){
-			next=a;
+		void setNext(Node n){
+			next=n;
 			
 		}
-		int getNext(){
+		Node getNext(){
 			return next;
 			
 		}

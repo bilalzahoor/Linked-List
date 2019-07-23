@@ -7,6 +7,7 @@ import java.awt.Label;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -29,7 +30,7 @@ public class home {
 	JButton btnCreate;
 	private static JPanel panel_2;
 	static JPanel panelList;
-	static Node[] nodes;
+	static ArrayList<Node> nodes;
 	static JPanel panelNode; 
 
 	/**
@@ -39,7 +40,7 @@ public class home {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					home window = new home();
+					home window   = new home();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -156,7 +157,7 @@ public class home {
 	//	
 	//}
 	  }
-	   static void visualize(Node[] n){
+	   static void visualize(ArrayList<Node> n){
 		  nodes=n;
 		  JPanel panelStart = new JPanel();
 			panelStart.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -171,7 +172,7 @@ public class home {
 			lblNewLabel.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
 			panelStart.add(lblNewLabel);
 			
-			JLabel lblStart = new JLabel("NULL");
+			JLabel lblStart = new JLabel(nodes.get(0).getAddress().hashCode()+"");
 			lblStart.setPreferredSize(new Dimension(40, 14));
 			lblStart.setMinimumSize(new Dimension(40, 14));
 			lblStart.setMaximumSize(new Dimension(40, 14));
@@ -181,7 +182,7 @@ public class home {
 			Component horizontalStrut = Box.createHorizontalStrut(40);
 			panel_2.add(horizontalStrut);
 
-		  for(int i=0;i<nodes.length;i++){
+		  for(int i=1;i<nodes.size();i++){
 				panelNode = new JPanel();
 				panelNode.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 				panelList.add(panelNode);
@@ -190,10 +191,7 @@ public class home {
 				//panelList.add
 				panelNode.setLayout(new BoxLayout(panelNode, BoxLayout.Y_AXIS));
 				
-				JLabel lblAddress = new JLabel("ADD:"+nodes[i].getAddress());
-				if(lblStart.getText().compareTo("NULL")==0){
-					lblStart.setText(nodes[i].getAddress()+"");
-				}
+				JLabel lblAddress = new JLabel("ADD:"+nodes.get(i).getAddress().hashCode());
 				lblAddress.setAlignmentX(Component.CENTER_ALIGNMENT);
 				lblAddress.setHorizontalTextPosition(SwingConstants.CENTER);
 				lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
@@ -232,7 +230,7 @@ public class home {
 				panelNode.add(panelElement);
 				panelElement.setLayout(new BoxLayout(panelElement, BoxLayout.X_AXIS));
 				
-				JLabel lblData1 = new JLabel(nodes[i].getData()+"");
+				JLabel lblData1 = new JLabel(nodes.get(i).getData()+"");
 				lblData1.setPreferredSize(new Dimension(40, 14));
 				lblData1.setMinimumSize(new Dimension(40, 14));
 				lblData1.setMaximumSize(new Dimension(40, 14));
@@ -243,8 +241,8 @@ public class home {
 				panelElement.add(horizontalStrut_2);
 				
 				JLabel lblLink1 = new JLabel("NULL");
-				if(nodes[i].getNext()!=0)
-					lblLink1.setText(nodes[i].getNext()+"");
+				if(nodes.get(i).getNext()!=null)
+					lblLink1.setText(nodes.get(i).getNext().hashCode()+"");
 				lblLink1.setPreferredSize(new Dimension(40, 14));
 				lblLink1.setMinimumSize(new Dimension(40, 14));
 				lblLink1.setMaximumSize(new Dimension(40, 14));

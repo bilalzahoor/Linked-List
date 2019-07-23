@@ -11,6 +11,7 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -20,8 +21,9 @@ public class NodesWindow {
 	public JFrame frame;
 	int noOfNodes;
 	private JTextField textField;
-	Node[] nodes;
+	ArrayList<Node> nodes;
 	JTextField[] textFields;
+	Node start,temp;
 
 	/**
 	 * Launch the application.
@@ -44,7 +46,7 @@ public class NodesWindow {
 	 */
 	public NodesWindow(int n) {
 		noOfNodes=n;
-		nodes =new Node[noOfNodes];
+		nodes =new ArrayList<Node>();
 		textFields= new JTextField[noOfNodes];
 		initialize();
 	}
@@ -75,23 +77,24 @@ public class NodesWindow {
 		btnNewButton.setBackground(Color.GRAY);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				int add=100;
 				
 				for(int i=0;i<noOfNodes;i++)
 				{
 					int data=Integer.parseInt(textFields[i].getText().toString());
-					
-						
-					Node n = new Node();
-					n.putData(data);
-					n.putAddress(add);
-					if(i<noOfNodes-1){
-						add=add+100;
-						n.putNext(add);
+					Node node = new Node(data);
+					if(i==0) {
+						temp=start=node;
+						nodes.add(start);
 					}
-					else
-						n.putNext(0);
-					nodes[i]=n;
+					else {
+						temp.setNext(node);
+						temp=node;
+						
+					}
+			
+					nodes.add(node);
 					
 				}
 				home.visualize(nodes);
