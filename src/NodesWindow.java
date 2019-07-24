@@ -78,7 +78,7 @@ public class NodesWindow {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				int add=100;
+				int  add=100;
 				
 				for(int i=0;i<noOfNodes;i++)
 				{

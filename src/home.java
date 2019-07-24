@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.JTextField;
 
 
 
@@ -32,6 +33,8 @@ public class home {
 	static JPanel panelList;
 	static ArrayList<Node> nodes;
 	static JPanel panelNode; 
+	JPanel panelInsert;
+	private JTextField textFieldInsertElement;
 
 	/**
 	 * Launch the application.
@@ -108,6 +111,14 @@ public class home {
 		panel.add(btnCreate);
 		
 		JButton btnNewButton = new JButton("INSERT");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(nodes!=null){
+					panelInsert.setVisible(true);
+				}
+				
+			}
+		});
 		btnNewButton.setBounds(401, 4, 82, 23);
 		btnNewButton.setBackground(Color.WHITE);
 		panel.add(btnNewButton);
@@ -149,7 +160,46 @@ public class home {
 		panel_2.add(panelList);
 		panelList.setLayout(new BoxLayout(panelList, BoxLayout.X_AXIS));
 		
+		panelInsert = new JPanel();
+		panelInsert.setVisible(false);
+		panelInsert.setBounds(741, 135, 233, 107);
+		frame.getContentPane().add(panelInsert);
+		panelInsert.setLayout(null);
+		
+		JButton btnNewButton_5 = new JButton("New button");
+		btnNewButton_5.setBounds(110, 73, 89, 23);
+		panelInsert.add(btnNewButton_5);
+		
+		JButton btnNewButton_6 = new JButton("New button");
+		btnNewButton_6.setBounds(25, 73, 89, 23);
+		panelInsert.add(btnNewButton_6);
+		
+		JButton btnNewButton_7 = new JButton("Front");
+		btnNewButton_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int ele = Integer.parseInt(textFieldInsertElement.getText());
+				Node n = new Node(ele);
+				nodes.add(1,n);
+				nodes.get(0).setNext(n.getAddress());
+				n.setNext(nodes.get(2).getAddress());
+				panelList.removeAll();
+				visualize(nodes);
 				
+			}
+		});
+		btnNewButton_7.setBounds(25, 39, 89, 23);
+		panelInsert.add(btnNewButton_7);
+		
+		JLabel lblNewLabel_1 = new JLabel("Enter the element to Insert");
+		lblNewLabel_1.setBounds(10, 9, 141, 14);
+		panelInsert.add(lblNewLabel_1);
+		
+		textFieldInsertElement = new JTextField();
+		textFieldInsertElement.setBounds(158, 6, 65, 20);
+		panelInsert.add(textFieldInsertElement);
+		textFieldInsertElement.setColumns(10);
+		
+		//visualize(nodes);		
 		
 		
 
@@ -181,13 +231,13 @@ public class home {
 			
 			Component horizontalStrut = Box.createHorizontalStrut(40);
 			panel_2.add(horizontalStrut);
-
-		  for(int i=1;i<nodes.size();i++){
+//int i=1;
+		 for(int i=1;i<nodes.size();i++){
 				panelNode = new JPanel();
 				panelNode.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 				panelList.add(panelNode);
 				
-				panelList.add(horizontalStrut);
+				//panelList.add(horizontalStrut);
 				//panelList.add
 				panelNode.setLayout(new BoxLayout(panelNode, BoxLayout.Y_AXIS));
 				
@@ -251,6 +301,6 @@ public class home {
 			
 				}
 				panelElement.add(lblLink1);
-	  }
+	 }
 }
 }
