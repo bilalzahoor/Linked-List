@@ -7,13 +7,14 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Font;
 
 
 public class CreateWindow {
 
 	public JFrame frame;
 	private JTextField textFieldNoOfNodes;
-	int n;
+	 public int n;
 
 	/**
 	 * Launch the application.
@@ -43,24 +44,26 @@ public class CreateWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
+		frame.getContentPane().setForeground(new Color(0, 0, 0));
+		frame.getContentPane().setBackground(new Color(245, 255, 250));
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Enter the number of Nodes");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel.setBackground(Color.WHITE);
-		lblNewLabel.setBounds(33, 66, 157, 52);
+		lblNewLabel.setBounds(33, 66, 188, 52);
 		frame.getContentPane().add(lblNewLabel);
 		
 		textFieldNoOfNodes = new JTextField();
-		textFieldNoOfNodes.setBounds(213, 82, 71, 20);
+		textFieldNoOfNodes.setBounds(219, 82, 71, 20);
 		frame.getContentPane().add(textFieldNoOfNodes);
 		textFieldNoOfNodes.setColumns(10);
 		
 		
 		JButton btnNewButton = new JButton("CREATE");
-		btnNewButton.setBackground(Color.WHITE);
+		btnNewButton.setBackground(new Color(230, 230, 250));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			

@@ -56,6 +56,7 @@ public class NodesWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(255, 248, 220));
 		frame.setBounds(100, 100, 451, 352);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -65,7 +66,7 @@ public class NodesWindow {
 		frame.getContentPane().add(scrollPane);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
+		panel_1.setBackground(new Color(230, 230, 250));
 		scrollPane.setViewportView(panel_1);
 		panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
@@ -74,7 +75,7 @@ public class NodesWindow {
 		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
 		
 		JButton btnNewButton = new JButton("Show Visual");
-		btnNewButton.setBackground(Color.GRAY);
+		btnNewButton.setBackground(new Color(230, 230, 250));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -104,7 +105,7 @@ public class NodesWindow {
 				
 			}
 		});
-		btnNewButton.setBounds(10, 279, 103, 23);
+		btnNewButton.setBounds(102, 246, 144, 23);
 		frame.getContentPane().add(btnNewButton);
 		
 
