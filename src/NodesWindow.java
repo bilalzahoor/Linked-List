@@ -6,20 +6,27 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
+
 import java.awt.FlowLayout;
 import java.awt.Component;
+
 import javax.swing.Box;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class NodesWindow {
 
 	public JFrame frame;
 	int noOfNodes;
+	JLabel lblError;
 	private JTextField textField;
 	ArrayList<Node> nodes;
 	JTextField[] textFields;
@@ -57,7 +64,7 @@ public class NodesWindow {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(255, 248, 220));
-		frame.setBounds(100, 100, 451, 352);
+		frame.setBounds(100, 100, 372, 351);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -74,13 +81,24 @@ public class NodesWindow {
 		panel_1.add(panel_2);
 		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
 		
-		JButton btnNewButton = new JButton("Show Visual");
-		btnNewButton.setBackground(new Color(230, 230, 250));
+		JButton btnNewButton = new JButton("SHOW VISUAL");
+		btnNewButton.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				lblError.setText("");
+			}
+		});
+		btnNewButton.setFont(new Font("Nirmala UI", Font.BOLD, 14));
+		btnNewButton.setBackground(new Color(173, 216, 230));
+		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				int  add=100;
-				
+				if(textField.getText().trim().isEmpty()){
+					lblError.setText("EMPTY FIELD!");
+				}
+				// int add=100;
+				else{
 				for(int i=0;i<noOfNodes;i++)
 				{
 					int data=Integer.parseInt(textFields[i].getText().toString());
@@ -102,11 +120,15 @@ public class NodesWindow {
 				frame.setVisible(false);
 				home.frame.setVisible(true);
 				
-				
+				}
 			}
 		});
-		btnNewButton.setBounds(102, 246, 144, 23);
+		btnNewButton.setBounds(101, 238, 144, 34);
 		frame.getContentPane().add(btnNewButton);
+		
+		lblError = new JLabel("");
+		lblError.setBounds(203, 275, 144, 16);
+		frame.getContentPane().add(lblError);
 		
 
 		for(int i=0;i<noOfNodes;i++){
@@ -131,5 +153,4 @@ public class NodesWindow {
 			textFields[i]=textField;
 		}
 	}
-	
 }

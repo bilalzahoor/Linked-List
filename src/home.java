@@ -22,7 +22,24 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.JTextField;
 
+
+
+
+
+
+
+
+
 import java.awt.Font;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 
 
@@ -30,17 +47,42 @@ import java.awt.Font;
 public class home {
 
 	static JFrame frame;
+	static home homeWin;
 	JButton btnCreate;
+	JLabel lblSearch;
 	private static JPanel panel_2;
 	static JPanel panelList;
 	static ArrayList<Node> nodes;
-	static JPanel panelNode; 
+	static JLabel lblError;
+	static JPanel panelNode;
+	static JLabel lblLink2;
+	static JLabel lblLink1;
 	JPanel panelInsert;
 	JPanel Deletepanel;
+	JButton btnNewButton;
+	JButton btnDelete;
+	JButton btnDestroy;
+	JRadioButton radioButton;
+	JRadioButton rdbtnAt;
+	JButton btnAtF;
+	JButton btnAtR;
+	JButton btnAtSP;
+	JRadioButton rdbtnDat;
+	JRadioButton rdbtnDatSP;
+	JButton btnDatF;
+	JButton btnDatR;
+	JButton btnDatSP;
+	JButton btnCount;
+	JComboBox<Object> comboBox;
 	private JTextField textFieldInsertElement;
-	private JTextField textField;
 	private JTextField Index;
-	private JTextField textField_1;
+	private JTextField Index1;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private JScrollPane structScroll;
+	private JLabel lblEntrele;
+	private static String LinkListType;
+	
 
 	/**
 	 * Launch the application.
@@ -50,6 +92,7 @@ public class home {
 			public void run() {
 				try {
 					home window   = new home();
+					homeWin=window;
 					home.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,6 +105,7 @@ public class home {
 	 * Create the application.
 	 */
 	public home() {
+		LinkListType="SL";
 		initialize();
 	}
 
@@ -72,291 +116,478 @@ public class home {
 	
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(240, 248, 255));
-		frame.setBounds(0, 0, 1053, 644);
+		frame.setBounds(0, 0, 1429, 809);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		Panel panel_1 = new Panel();
-		panel_1.setBackground(new Color(230, 230, 250));
-		panel_1.setBounds(0, 0, 1035, 597);
-		frame.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(21, 77, 639, 405);
-		panel_1.add(scrollPane);
-		
-		panel_2 = new JPanel();
-		scrollPane.setViewportView(panel_2);
-		panel_2.setBackground(new Color(253, 245, 230));
-		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 80));
-		
-		
-		panelList = new JPanel();
-		panel_2.add(panelList);
-		panelList.setLayout(new BoxLayout(panelList, BoxLayout.X_AXIS));
+		Panel MainPnl = new Panel();
+		MainPnl.setBackground(new Color(233, 150, 122));
+		MainPnl.setBounds(0, 0, 1379, 752);
+		frame.getContentPane().add(MainPnl);
+		MainPnl.setLayout(null);
 		
 		
 		Panel panel = new Panel();
-		panel.setBounds(0, 0, 1035, 58);
-		panel_1.add(panel);
-		panel.setBackground(new Color(255, 222, 173));
+		panel.setBounds(0, 0, 1374, 63);
+		MainPnl.add(panel);
+		panel.setBackground(new Color(222, 184, 135));
 		panel.setLayout(null);
 		
 			
-			Label label = new Label("TYPE OF LIST");
-			label.setFont(new Font("Dialog", Font.BOLD, 12));
-			label.setBounds(30, 5, 83, 22);
+			Label label = new Label("TYPE OF LIST:");
+			label.setFont(new Font("Nirmala UI", Font.BOLD, 16));
+			label.setBounds(31, 7, 121, 36);
 			panel.add(label);
 			
 		
 	
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox<Object>();
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				
+				String s =comboBox.getSelectedItem().toString();
+				if(s.compareTo("SINGLY LIST")==0){
+					LinkListType="SL";
+					
+				}
+				else if(s.compareTo("CIRCULAR LIST")==0){
+					LinkListType="CL";
+				}
+				else if(s.compareTo("DOUBLY LIST")==0){
+					LinkListType="DL";
+				}
+			}
+		});
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"SINGLY LIST", "CIRCULAR LIST","DOUBLY LIST" }));
+		comboBox.setFont(new Font("Nirmala UI", Font.BOLD, 14));
 		comboBox.setBackground(new Color(230, 230, 250));
-		comboBox.setBounds(120, 7, 93, 20);
-		comboBox.addItem("SINGLY LIST");
-		comboBox.addItem("DOUBLY LIST");
-		comboBox.addItem("CIRCULAR LIST");
+		comboBox.setBounds(158, 7, 142, 36);
 		panel.add(comboBox);
 		
-		Label label_1 = new Label("LIST OPERATIONS");
-		label_1.setFont(new Font("Dialog", Font.BOLD, 12));
-		label_1.setBounds(263 , 5, 121, 22);
-		panel.add(label_1);
+		Label lblOprList = new Label("LIST OF  OPERATIONS:");
+		lblOprList.setFont(new Font("Nirmala UI", Font.BOLD, 16));
+		lblOprList.setBounds(389 , 10, 195, 33);
+		panel.add(lblOprList);
 		
 		btnCreate = new JButton("CREATE");
-		btnCreate.setBounds(389, 5, 82, 23);
+		btnCreate.setFont(new Font("Nirmala UI", Font.BOLD, 14));
+		btnCreate.setBounds(590, 7, 142, 36);
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				CreateWindow win = new CreateWindow();
+				CreateWindow win = new CreateWindow(homeWin);
 				win.frame.setVisible(true);
-				frame.setVisible(false);
-				
+				//frame.setVisible(false);
+				btnCreate.setEnabled(false);
+				lblError.setVisible(false);
+				comboBox.setEnabled(false);
 			}
 		});
-		btnCreate.setBackground(new Color(230, 230, 250));
+		btnCreate.setBackground(Color.LIGHT_GRAY);
 		panel.add(btnCreate);
 		
-		JButton btnNewButton = new JButton("INSERT");
+		btnNewButton = new JButton("INSERT");
+		btnNewButton.setFont(new Font("Nirmala UI", Font.BOLD, 14));
+		btnNewButton.setEnabled(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(nodes!=null){
+					textFieldInsertElement.setText("");
+					Index.setText("");
 					panelInsert.setVisible(true);
+					Deletepanel.setVisible(false);
+					btnNewButton.setEnabled(false);
+					btnDelete.setEnabled(true);
+					lblSearch.setVisible(false);
+					
+					
+					
 				}
 				
 			}
-		});
-		btnNewButton.setBounds(483, 4, 82, 23);
-		btnNewButton.setBackground(new Color(230, 230, 250));
+		);
+		btnNewButton.setBounds(744, 9, 144, 34);
+		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		panel.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("DELETE");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		btnDelete = new JButton("DELETE");
+		btnDelete.setFont(new Font("Nirmala UI", Font.BOLD, 14));
+		btnDelete.setEnabled(false);
+		btnDelete.addActionListener(new ActionListener() {
 			
          public void actionPerformed(ActionEvent arg0) {
         	 if(nodes!=null){
 					Deletepanel.setVisible(true);
+					panelInsert.setVisible(false);
+					btnNewButton.setEnabled(true);
+					btnDelete.setEnabled(false);
+					lblSearch.setVisible(false);
 					
 				}
 			
 			}
          }
 		);
-		btnNewButton_1.setBackground(new Color(230, 230, 250));
-		btnNewButton_1.setBounds(577, 5, 82, 23);
-		panel.add(btnNewButton_1);
+		btnDelete.setBackground(Color.LIGHT_GRAY);
+		btnDelete.setBounds(900, 9, 144, 34);
+		panel.add(btnDelete);
 		
-		JButton btnNewButton_2 = new JButton("SEARCH");
-		btnNewButton_2.setBackground(new Color(230, 230, 250));
-		btnNewButton_2.setBounds(671, 4, 82, 23);
-		panel.add(btnNewButton_2);
+		lblSearch = new JLabel();
+		lblSearch.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSearch.setFont(new Font("Nirmala UI", Font.BOLD, 14));
+		lblSearch.setEnabled(false);
+		lblSearch.setBackground(new Color(176, 196, 222));
+		lblSearch.setBounds(1293, 7, 69, 34);
+		lblSearch.setVisible(false);
+		panel.add(lblSearch);
 		
-		JButton btnNewButton_3 = new JButton("COUNT");
-		btnNewButton_3.setBackground(new Color(230, 230, 250));
-		btnNewButton_3.setBounds(765, 4, 83, 23);
-		panel.add(btnNewButton_3);
 		
-		JButton btnNewButton_4 = new JButton("MODIFY");
-		btnNewButton_4.setBounds(860, 4, 100, 23);
-		panel.add(btnNewButton_4);
+		btnDestroy = new JButton("DESTROY");
+		btnDestroy.setBounds(1049, 7, 121, 36);
+		panel.add(btnDestroy);
+		btnDestroy.setEnabled(false);
+		btnDestroy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelList.removeAll();
+				panelList.getRootPane().revalidate();
+				btnCreate.setEnabled(true);
+				lblError.setVisible(true);
+				btnNewButton.setEnabled(false);
+				btnDelete.setEnabled(false);
+				btnDestroy.setEnabled(false);
+				lblError.setText("LinkedList Destroyed!");
+				lblSearch.setText(null);
+				lblSearch.setVisible(false);
+				btnCount.setEnabled(false);
+				comboBox.setEnabled(true);
+				
+					
+					
+					
+				}
+			}
+		);
+		btnDestroy.setFont(new Font("Nirmala UI", Font.BOLD, 14));
+		btnDestroy.setBackground(Color.LIGHT_GRAY);
+		
+		btnCount = new JButton("Count");
+		btnCount.setEnabled(false);
+		btnCount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				lblSearch.setVisible(true);
+			}
+		});
+		btnCount.setBounds(1172, 7, 121, 36);
+		panel.add(btnCount);
+		btnCount.setFont(new Font("Nirmala UI", Font.BOLD, 14));
+		btnCount.setBackground(Color.LIGHT_GRAY);
 		 
 		
 		panelInsert = new JPanel();
-		panelInsert.setBounds(672, 77, 262, 165);
-		panel_1.add(panelInsert);
-		panelInsert.setBackground(new Color(222, 184, 135));
+		panelInsert.setBounds(983, 69, 369, 225);
+		MainPnl.add(panelInsert);
+		panelInsert.setBackground(new Color(240, 230, 140));
 		panelInsert.setVisible(false);
 		panelInsert.setLayout(null);
 		
-		JButton btnNewButton_6 = new JButton("END");
-		btnNewButton_6.setBackground(new Color(230, 230, 250));
-		btnNewButton_6.addActionListener(new ActionListener() {
+		btnAtR = new JButton("END");
+		btnAtR.setFont(new Font("Nirmala UI", Font.BOLD, 13));
+		btnAtR.setBackground(new Color(224, 255, 255));
+		btnAtR.setBounds(22, 107, 126, 34);
+		panelInsert.add(btnAtR);
+		btnAtR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int ele = Integer.parseInt(textFieldInsertElement.getText());
-				Node n = new Node(ele);
-				nodes.get(nodes.size()-1).setNext(n);
-				nodes.add(n);
-				panelList.removeAll();
-				home.visualize(nodes);
-				
-				panelList.getRootPane().revalidate();
-			}
+				InsertAtRear();
+				}			
 		});
-		btnNewButton_6.setBounds(20, 73, 101, 23);
-		panelInsert.add(btnNewButton_6);
 		
-		JButton btnNewButton_7 = new JButton("FRONT");
-		btnNewButton_7.setBackground(new Color(230, 230, 250));
-		btnNewButton_7.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int ele = Integer.parseInt(textFieldInsertElement.getText());
-				Node n = new Node(ele);
-				nodes.add(1,n);
-				nodes.get(0).setNext(n.getAddress());
-				n.setNext(nodes.get(2).getAddress());
-				panelList.removeAll();
-				home.visualize(nodes);
-				//n++;
-				
-				panelList.getRootPane().revalidate();
-				
-				
-				
+		
+		btnAtF = new JButton("FRONT");
+		btnAtF.setFont(new Font("Nirmala UI", Font.BOLD, 13));
+		btnAtF.setBackground(new Color(224, 255, 255));
+		btnAtF.setBounds(22, 60, 126, 34);
+		panelInsert.add(btnAtF);
+		btnAtF.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				lblEntrele.setText("");
 			}
 		});
-		btnNewButton_7.setBounds(20, 37, 101, 23);
-		panelInsert.add(btnNewButton_7);
+		btnAtF.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			InsertAtFront();
+				}
+			}
+		);
+		
 		
 		textFieldInsertElement = new JTextField();
-		textFieldInsertElement.setBounds(190, 7, 60, 18);
+		textFieldInsertElement.setForeground(Color.BLACK);
+		textFieldInsertElement.setBounds(252, 15, 107, 32);
 		panelInsert.add(textFieldInsertElement);
 		textFieldInsertElement.setColumns(10);
+		textFieldInsertElement.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				lblEntrele.setText(null);
+			}
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				char c = evt.getKeyChar();
+				if(Character.isLetter(c) || Character.isWhitespace(c)){
+					Index.setEditable(false);
+					lblEntrele.setVisible(true);
+					lblEntrele.setText("Enter Number`s Only!");
+					
+				}
+				else{
+					Index.setEditable(true);
+					lblEntrele.setVisible(false);
+				}
+			}
+		});
 		
-		JLabel lblNewLabel_1 = new JLabel("Enter the element to Insert");
-		lblNewLabel_1.setBounds(20, 9, 168, 15);
-		panelInsert.add(lblNewLabel_1);
-		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 13));
+		JLabel lblEntr = new JLabel("ENTER THE ELEMENT TO INSERT:");
+		lblEntr.setBounds(12, 13, 240, 34);
+		panelInsert.add(lblEntr);
+		lblEntr.setFont(new Font("Nirmala UI", Font.BOLD, 15));
 		
 		Index = new JTextField();
-		Index.setBounds(147, 110, 74, 22);
+		Index.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				char c = evt.getKeyChar();
+				if(Character.isLetter(c) || Character.isWhitespace(c)){
+					Index.setEditable(false);
+					lblEntrele.setVisible(true);
+					lblEntrele.setText("Enter Number`s Only!");
+					
+				}
+				else{
+					Index.setEditable(true);
+					lblEntrele.setVisible(false);
+				}
+			}
+		});
+		Index.setBounds(252, 160, 107, 34);
+		Index.setEnabled(false);
 		panelInsert.add(Index);
 		Index.setColumns(10);
 		
-		JButton SetPosition = new JButton("INSERT AT");
-		SetPosition.setBackground(new Color(230, 230, 250));
-		SetPosition.addActionListener(new ActionListener() {
+		btnAtSP = new JButton("INSERT AT");
+		btnAtSP.setFont(new Font("Nirmala UI", Font.BOLD, 13));
+		btnAtSP.setBackground(new Color(224, 255, 255));
+		btnAtSP.setEnabled(false);
+		btnAtSP.setBounds(22, 160, 126, 34);
+		panelInsert.add(btnAtSP);
+		btnAtSP.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
-				int ele = Integer.parseInt(textFieldInsertElement.getText());
-				Node n = new Node(ele);
-				int index1 = Integer.parseInt(Index.getText().toString());		
-				nodes.add(index1,n);
-				nodes.get(0).setNext(n.getAddress());
-				index1++;
-				n.setNext(nodes.get(index1).getAddress());
-				panelList.removeAll();
-				home.visualize(nodes);
-				//n++;
-				
-				panelList.getRootPane().revalidate();
-				}
+				InsertAtSP();
+			}
 		});
-		SetPosition.setBounds(20, 109, 101, 25);
-		panelInsert.add(SetPosition);
+		
+		
+		radioButton = new JRadioButton("");
+		radioButton.setBackground(new Color(240, 230, 140));
+		radioButton.setSelected(true);
+		buttonGroup.add(radioButton);
+		radioButton.setBounds(156, 90, 25, 25);
+		panelInsert.add(radioButton);
+		radioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnAtSP.setEnabled(false);
+				Index.setEnabled(false);
+				btnAtF.setEnabled(true);
+				btnAtR.setEnabled(true);
+			}
+		});
+		
+		
+		rdbtnAt = new JRadioButton("");
+		rdbtnAt.setBackground(new Color(240, 230, 140));
+		buttonGroup.add(rdbtnAt);
+		rdbtnAt.setBounds(156, 165, 25, 25);
+		panelInsert.add(rdbtnAt);
+		rdbtnAt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnAtF.setEnabled(false);
+				btnAtR.setEnabled(false);
+				btnAtSP.setEnabled(true);
+				Index.setEnabled(true);
+			}
+		});
+		
+		
+		lblEntrele = new JLabel("");
+		lblEntrele.setFont(new Font("Century", Font.BOLD, 13));
+		lblEntrele.setForeground(new Color(255, 0, 0));
+		lblEntrele.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEntrele.setBounds(166, 207, 158, 16);
+		lblEntrele.setVisible(false);
+		panelInsert.add(lblEntrele);
 		
 		Deletepanel = new JPanel();
-		Deletepanel.setBackground(new Color(222, 184, 135));
-		Deletepanel.setBounds(672, 288, 262, 182);
-		panel_1.add(Deletepanel);
+		Deletepanel.setBackground(new Color(240, 230, 140));
+		Deletepanel.setBounds(983, 318, 362, 225);
+		MainPnl.add(Deletepanel);
 		Deletepanel.setVisible(false);
 		
 		Deletepanel.setLayout(null);
 		
-		JButton btnNewButton_5 = new JButton("FRONT");
-		btnNewButton_5.addActionListener(new ActionListener() {
+		btnDatF = new JButton("FRONT");
+		btnDatF.setFont(new Font("Nirmala UI", Font.BOLD, 13));
+		btnDatF.setBackground(new Color(224, 255, 255));
+		btnDatF.setBounds(32, 60, 122, 34);
+		Deletepanel.add(btnDatF);
+		btnDatF.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Node n = nodes.get(1).getAddress();
-				nodes.get(0).setNext(n);
-				nodes.remove(1);
-				panelList.removeAll();
-				home.visualize(nodes);
-				//n++;
-				
-				panelList.getRootPane().revalidate();
+				 DelAtFront();
+				}
+		});
+		
+		
+		btnDatR = new JButton("END");
+		btnDatR.setForeground(new Color(0, 0, 0));
+		btnDatR.setFont(new Font("Nirmala UI", Font.BOLD, 13));
+		btnDatR.setBackground(new Color(224, 255, 255));
+		btnDatR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DelAtR();
+			
 			
 			}
-		
 		});
-		btnNewButton_5.setBounds(12, 64, 97, 25);
-		Deletepanel.add(btnNewButton_5);
+		btnDatR.setBounds(32, 108, 122, 34);
+		Deletepanel.add(btnDatR);
 		
-		JButton btnNewButton_8 = new JButton("END");
-		btnNewButton_8.addActionListener(new ActionListener() {
+		btnDatSP = new JButton("DELETE AT");
+		btnDatSP.setFont(new Font("Nirmala UI", Font.BOLD, 13));
+		btnDatSP.setEnabled(false);
+		btnDatSP.setBackground(new Color(224, 255, 255));
+		btnDatSP.setBounds(32, 167, 122, 34);
+		Deletepanel.add(btnDatSP);
+		btnDatSP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				DelAtSP();
 			}
 		});
-		btnNewButton_8.setBounds(12, 103, 97, 25);
-		Deletepanel.add(btnNewButton_8);
 		
-		JButton btnNewButton_9 = new JButton("DELETE AT");
-		btnNewButton_9.setBounds(12, 144, 97, 25);
-		Deletepanel.add(btnNewButton_9);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(134, 145, 83, 22);
-		Deletepanel.add(textField_1);
-		textField_1.setColumns(10);
-		
-		JLabel lblDeleteNode = new JLabel("DELETE NODE");
-		lblDeleteNode.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblDeleteNode.setBounds(67, 13, 111, 25);
+		JLabel lblDeleteNode = new JLabel("DELETE NODE:");
+		lblDeleteNode.setFont(new Font("Nirmala UI", Font.BOLD, 15));
+		lblDeleteNode.setBounds(121, 13, 111, 34);
 		Deletepanel.add(lblDeleteNode);
 		
+		Index1 = new JTextField();
+		Index1.setBounds(239, 167, 111, 34);
+		Index1.setEnabled(false);
+		Deletepanel.add(Index1);
+		Index1.setColumns(10);
+		
+		rdbtnDat = new JRadioButton("");
+		rdbtnDat.setBackground(new Color(240, 230, 140));
+		rdbtnDat.setSelected(true);
+		buttonGroup_1.add(rdbtnDat);
+		rdbtnDat.setBounds(162, 90, 30, 34);
+		Deletepanel.add(rdbtnDat);
+		rdbtnDat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnDatF.setEnabled(true);
+				btnDatR.setEnabled(true);
+				btnDatSP.setEnabled(false);
+				Index1.setEnabled(false);
+			}
+		});
+		
+		rdbtnDatSP = new JRadioButton("");
+		rdbtnDatSP.setBackground(new Color(240, 230, 140));
+		buttonGroup_1.add(rdbtnDatSP);
+		rdbtnDatSP.setBounds(162, 167, 30, 34);
+		Deletepanel.add(rdbtnDatSP);
+		rdbtnDatSP.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnDatSP.setEnabled(true);
+				Index1.setEnabled(true);
+				btnDatF.setEnabled(false);
+				btnDatR.setEnabled(false);
+			}
+		});
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 69, 971, 683);
+		MainPnl.add(scrollPane);
+		
+		panel_2 = new JPanel();
+		scrollPane.setViewportView(panel_2);
+		panel_2.setBackground(new Color(253, 245, 230));
+		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 80));
+		
+		Component verticalStrut = Box.createVerticalStrut(500);
+		panel_2.add(verticalStrut);
 		
 		
+		panelList = new JPanel();
+		panel_2.add(panelList);
+		panelList.setLayout(new BoxLayout(panelList, BoxLayout.X_AXIS));
 		
+		structScroll = new JScrollPane();
+		panelList.add(structScroll);
 		
-				
+		lblError = new JLabel("LinkedList Visual`s!");
+		lblError.setFont(new Font("Century Schoolbook", Font.BOLD, 40));
+		lblError.setVisible(true);
+		panel_2.add(lblError);
 		
-		
-
-		
-		
-	//}
+	 //}
 	  }
+	  
 	   static void visualize(ArrayList<Node> n){
+		   
 		  nodes=n;
-		  JPanel panelStart = new JPanel();
+		  	JPanel panelStart = new JPanel();
 			panelStart.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panelList.add(panelStart);
 			panelStart.setLayout(new BoxLayout(panelStart, BoxLayout.Y_AXIS));
 			
-			JLabel lblNewLabel = new JLabel("START");
-			lblNewLabel.setPreferredSize(new Dimension(40, 14));
-			lblNewLabel.setMaximumSize(new Dimension(40, 14));
-			lblNewLabel.setMaximumSize(new Dimension(40, 14));
+			JLabel lblNewLabel = new JLabel("FIRST ELEMENT");
+			lblNewLabel.setPreferredSize(new Dimension(180, 20));
+			lblNewLabel.setMinimumSize(new Dimension(180, 20));
+			lblNewLabel.setMaximumSize(new Dimension(180, 20));
 			lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-			lblNewLabel.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
+			lblNewLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 			panelStart.add(lblNewLabel);
 			
-			JLabel lblStart = new JLabel(nodes.get(0).getAddress().hashCode()+"");
-			lblStart.setPreferredSize(new Dimension(40, 14));
-			lblStart.setMaximumSize(new Dimension(40, 14));
-			lblStart.setMaximumSize(new Dimension(40, 14));
+			JLabel lblEntr = new JLabel(""+nodes.get(1).getData());
+			lblEntr.setMinimumSize(new Dimension(180, 20));
+			lblEntr.setMaximumSize(new Dimension(180, 20));
+			lblEntr.setAlignmentX(Component.CENTER_ALIGNMENT);
+			lblEntr.setHorizontalTextPosition(SwingConstants.CENTER);
+			lblEntr.setHorizontalAlignment(SwingConstants.CENTER);
+			lblEntr.setBorder(new LineBorder(Color.BLUE));
+			panelStart.add(lblEntr);
+			
+			JLabel lblStart = new JLabel("ADD: "+nodes.get(1).getAddress().hashCode());
+			lblStart.setPreferredSize(new Dimension(180, 20));
+			lblStart.setMinimumSize(new Dimension(180, 20));
+			lblStart.setMaximumSize(new Dimension(180, 20));
 			lblStart.setAlignmentX(Component.CENTER_ALIGNMENT);
+			lblStart.setHorizontalTextPosition(SwingConstants.CENTER);
+			lblStart.setHorizontalAlignment(SwingConstants.CENTER);
+			lblStart.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 			panelStart.add(lblStart);
 			
 			Component horizontalStrut = Box.createHorizontalStrut(40);
 			panel_2.add(horizontalStrut);
-
+			
 		 for(int i=1;i<nodes.size();i++){
 				panelNode = new JPanel();
-				panelNode.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+				panelNode.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 				panelList.add(panelNode);
 				
-		panelList.add(horizontalStrut);
+				panelList.add(horizontalStrut);
 				//panelList.add
 				panelNode.setLayout(new BoxLayout(panelNode, BoxLayout.Y_AXIS));
 				
@@ -365,26 +596,37 @@ public class home {
 				lblAddress.setHorizontalTextPosition(SwingConstants.CENTER);
 				lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
 			
-				lblAddress.setMinimumSize(new Dimension(120, 14));
-				lblAddress.setMaximumSize(new Dimension(120, 14));
+				lblAddress.setMinimumSize(new Dimension(220, 20));
+				lblAddress.setMaximumSize(new Dimension(220, 20));
 				lblAddress.setBorder(new MatteBorder(0, 0, 3, 0, (Color) Color.BLUE));
 				panelNode.add(lblAddress);
 				
 				JPanel panelElementLabel = new JPanel();
-				panelElementLabel.setMaximumSize(new Dimension(120, 10));
-				panelElementLabel.setMaximumSize(new Dimension(120, 20));
+				panelElementLabel.setMaximumSize(new Dimension(220, 20));
+				panelElementLabel.setMaximumSize(new Dimension(220, 20));
 				panelElementLabel.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.BLUE));
 				panelNode.add(panelElementLabel);
 				panelElementLabel.setLayout(new BoxLayout(panelElementLabel, BoxLayout.X_AXIS));
+				
+				if(LinkListType.compareTo("DL")==0){
+				lblError.setVisible(false);
+				JLabel lblLink3 = new JLabel("LINK");
+				lblLink3.setPreferredSize(new Dimension(40, 14));
+				lblLink3.setMaximumSize(new Dimension(40, 14));
+				lblLink3.setMaximumSize(new Dimension(40, 14));
+				panelElementLabel.add(lblLink3);
+				Component horizontalStrut_3 = Box.createHorizontalStrut(5);
+				panelElementLabel.add(horizontalStrut_3);
+				}
 				
 				JLabel lblData = new JLabel("DATA");
 				lblData.setMaximumSize(new Dimension(40, 14));
 				lblData.setMaximumSize(new Dimension(40, 14));
 				lblData.setPreferredSize(new Dimension(40, 14));
-				lblData.setBorder(new MatteBorder(0, 0, 0, 3, (Color) new Color(0, 0, 0)));
+				lblData.setBorder(new MatteBorder(0, 3, 0, 3, (Color) new Color(0, 0, 0)));
 				panelElementLabel.add(lblData);
 				
-				Component horizontalStrut_1 = Box.createHorizontalStrut(20);
+				Component horizontalStrut_1 = Box.createHorizontalStrut(30);
 				panelElementLabel.add(horizontalStrut_1);
 				
 				JLabel lblLink = new JLabel("LINK");
@@ -392,34 +634,234 @@ public class home {
 				lblLink.setMaximumSize(new Dimension(40, 14));
 				lblLink.setMaximumSize(new Dimension(40, 14));
 				panelElementLabel.add(lblLink);
+				
 				JPanel panelElement = new JPanel();
-				panelElement.setMaximumSize(new Dimension(120, 10));
-				panelElement.setMaximumSize(new Dimension(120, 20));
+				panelElement.setMaximumSize(new Dimension(220, 20));
+				panelElement.setMaximumSize(new Dimension(220, 20));
 				panelElement.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.BLUE));
 				panelNode.add(panelElement);
 				panelElement.setLayout(new BoxLayout(panelElement, BoxLayout.X_AXIS));
 				
+				if(LinkListType.compareTo("DL")==0){
+					lblLink2 = new JLabel(""+nodes.get(i-1).hashCode());
+					if(i != nodes.size()-1){
+					//if(nodes.get(i).getNext()!=null){
+					lblLink2.setText(""+nodes.get(i-1).hashCode());
+					lblLink2.setPreferredSize(new Dimension(40, 14));
+					lblLink2.setMaximumSize(new Dimension(40, 14));
+					lblLink2.setMaximumSize(new Dimension(40, 14));
+					}
+					
+				
+					panelElement.add(lblLink2);	
+					
+				Component horizontalStrut_3 = Box.createHorizontalStrut(60);
+				panelElement.add(horizontalStrut_3);
 				JLabel lblData1 = new JLabel(nodes.get(i).getData()+"");
 				lblData1.setPreferredSize(new Dimension(40, 14));
 				lblData1.setMaximumSize(new Dimension(40, 14));
 				lblData1.setMaximumSize(new Dimension(40, 14));
-				lblData.setBorder(new MatteBorder(0, 0, 0, 3, (Color) new Color(0, 0, 0)));
+				lblData.setBorder(new MatteBorder(0, 3, 0, 3, (Color) new Color(0, 0, 0)));
 				panelElement.add(lblData1);
 				
 				Component horizontalStrut_2 = Box.createHorizontalStrut(20);
 				panelElement.add(horizontalStrut_2);
 				
-				JLabel lblLink1 = new JLabel("NULL");
-				if(nodes.get(i).getNext()!=null)
-					lblLink1.setText(nodes.get(i).getNext().hashCode()+"");
+				lblError.setVisible(false);
+				lblLink1 = new JLabel("NULL");
+				if(i != nodes.size()-1){
+				//if(nodes.get(i).getNext()!=null){
+				lblLink1.setText(""+nodes.get(i).getNext().hashCode());
 				lblLink1.setPreferredSize(new Dimension(40, 14));
 				lblLink1.setMaximumSize(new Dimension(40, 14));
 				lblLink1.setMaximumSize(new Dimension(40, 14));
-				if(i>0)
-				{
-			
 				}
+				
+			
 				panelElement.add(lblLink1);
+				
+				
+				}
+				else {
+					JLabel lblData1 = new JLabel(nodes.get(i).getData()+"");
+					lblData1.setPreferredSize(new Dimension(40, 14));
+					lblData1.setMaximumSize(new Dimension(40, 14));
+					lblData1.setMaximumSize(new Dimension(40, 14));
+					lblData.setBorder(new MatteBorder(0, 0, 0, 3, (Color) new Color(0, 0, 0)));
+					panelElement.add(lblData1);
+					
+					Component horizontalStrut_2 = Box.createHorizontalStrut(20);
+					panelElement.add(horizontalStrut_2);
+				}
+		 
+				
+				if(LinkListType.compareTo("SL")==0){
+				lblError.setVisible(false);
+				JLabel lblLink1 = new JLabel("NULL");
+				if(i != nodes.size()-1){
+				//if(nodes.get(i).getNext()!=null){
+				lblLink1.setText(""+nodes.get(i).getNext().hashCode());
+				lblLink1.setPreferredSize(new Dimension(40, 14));
+				lblLink1.setMaximumSize(new Dimension(40, 14));
+				lblLink1.setMaximumSize(new Dimension(40, 14));
+				}
+				
+			
+				panelElement.add(lblLink1);
+			}
+				else if(LinkListType.compareTo("CL")==0){
+					lblError.setVisible(false);
+					JLabel lblLink1 = new JLabel(nodes.get(1).getAddress().hashCode()+"");
+					if(i != nodes.size()-1){
+					//if(nodes.get(i).getNext()!=null){
+					lblLink1.setText(""+nodes.get(i).getNext().hashCode());
+					lblLink1.setPreferredSize(new Dimension(40, 14));
+					lblLink1.setMaximumSize(new Dimension(40, 14));
+					lblLink1.setMaximumSize(new Dimension(40, 14));
+					
+					}
+					
+				
+					panelElement.add(lblLink1);
+					
+				}
      }
 }
+
+
+void InsertAtFront(){	
+	if(textFieldInsertElement.getText().trim().isEmpty()){
+		lblEntrele.setText("Enter the Element!");
+		lblEntrele.setVisible(true);
+	}
+	else{
+	lblError.setVisible(false);
+	panelInsert.setVisible(false);
+	btnNewButton.setEnabled(true);
+	int data = Integer.parseInt(textFieldInsertElement.getText());
+	Node n = new Node(data);
+	nodes.add(1,n);
+	//nodes.get(data).setNext(n);  //ForCircular
+	n.setNext(nodes.get(2).getAddress());
+	n.setNext(n.getAddress().getNext());
+	
+	panelList.removeAll();
+	home.visualize(nodes);
+	lblSearch.revalidate();
+	lblSearch.setText(nodes.size()-1+"");
+	panelList.getRootPane().revalidate();
+					}
+				}
+
+void InsertAtRear(){
+	if(textFieldInsertElement.getText().trim().isEmpty()){
+		lblEntrele.setText("Enter the Element!");
+		lblEntrele.setVisible(true);
+	}
+	else{
+	lblError.setVisible(false);
+	panelInsert.setVisible(false);
+	btnNewButton.setEnabled(true);
+	int ele = Integer.parseInt(textFieldInsertElement.getText());
+	Node n = new Node(ele);
+	nodes.get(nodes.size()-1).setNext(n);
+	nodes.add(n);
+	panelList.removeAll();
+	home.visualize(nodes);
+	lblSearch.revalidate();
+	lblSearch.setText(nodes.size()-1+"");
+	panelList.getRootPane().revalidate();
+	
+				}
+	
+		}
+void InsertAtSP(){
+	
+	if(textFieldInsertElement.getText().trim().isEmpty() || Index.getText().trim().isEmpty()){
+		lblEntrele.setText("Enter the Element!");
+		lblEntrele.setVisible(true);
+	}
+	else if(nodes.get(0).getNext()!= null){
+		
+			panelInsert.setVisible(false);
+			btnNewButton.setEnabled(true);
+			int ele = Integer.parseInt(textFieldInsertElement.getText());
+			Node n = new Node(ele);
+			int index1 = Integer.parseInt(Index.getText().toString());		
+			nodes.add(index1,n);
+			nodes.get(index1-1).setNext(n.getAddress());
+			index1++;
+			n.setNext(nodes.get(index1).getAddress());
+			
+			panelList.removeAll();
+			home.visualize(nodes);
+			//n++;
+			lblSearch.revalidate();
+			lblSearch.setText(nodes.size()-1+"");
+			panelList.getRootPane().revalidate();	
+		}
+	else {
+		lblEntrele.setText("error");
+		lblEntrele.setVisible(true);
+				}
+			}
+void DelAtFront(){
+	
+		Node n = nodes.get(0).getAddress();
+		nodes.get(0).setNext(n.getAddress());
+		nodes.get(0).setNext(n);
+		nodes.remove(0);
+		panelList.removeAll();
+		home.visualize(nodes);
+		lblSearch.revalidate();
+		lblSearch.setText(nodes.size()-1+"");
+		//n++;		
+		panelList.getRootPane().revalidate();
+		Deletepanel.setVisible(false);
+		btnNewButton.setEnabled(true);
+		btnDelete.setEnabled(true);
+		
+	}
+	
+
+void DelAtR(){
+		Node n = nodes.get(nodes.size()-1).getAddress();
+	    nodes.get(nodes.size()-1).setNext(n.getAddress());
+	    nodes.get(nodes.size()-1).setNext(n);
+	    panelList.getRootPane().revalidate();
+	    nodes.remove(nodes.size()-1);
+	    
+	    panelList.removeAll();
+		home.visualize(nodes);
+		panelList.getRootPane().revalidate();
+		lblSearch.revalidate();
+		lblSearch.setText(nodes.size()-1+"");
+		
+		
+		Deletepanel.setVisible(false);
+		btnNewButton.setEnabled(true);
+		btnDelete.setEnabled(true);
+		
+	
+}
+
+//DeleteATSPFIX
+
+void DelAtSP(){
+	
+		int data = Integer.parseInt(Index1.getText());
+		Node n = nodes.get(data+1).getAddress();
+	    nodes.get(data-1).setNext(n.getAddress());
+	    nodes.get(data-1).setNext(n);
+		nodes.remove(data);
+		//nodes.removeAll(nodes);
+		panelList.removeAll();
+		home.visualize(nodes);
+		lblSearch.revalidate();
+		lblSearch.setText(""+nodes.size());
+		
+		panelList.getRootPane().revalidate();
+		btnDelete.setEnabled(true);
+			
+	}
 }
